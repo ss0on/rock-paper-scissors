@@ -1,12 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.6;
 
-pragma solidity >=0.7.0 <0.9.0;
-
-/** 
- * @title Ballot
- * @dev Implements voting process along with vote delegation
- */
-contract Ballot {
+contract RockPaperScissorsGame {
    
     struct Player {
         uint bet; 
@@ -14,9 +9,9 @@ contract Ballot {
 
     
     address private owner;
-    uint private treseaure;
+    uint private treasury;
 
-    event CheckTresaury(address indexed  treseaureAddress, uint treseaureBalance);
+    event CheckTreasury(address indexed  treasuryAddress, uint treasuryBalance);
 
     mapping(address => Player) public players;
     
@@ -31,7 +26,7 @@ contract Ballot {
     
     function deposit(uint _bet)payable public {
         require(_bet > 1000000000000000000 wei, 'pay more');
-        treseaure = msg.value;
+        treasury = msg.value;
         players[msg.sender].bet  += _bet;
     }
     
@@ -40,7 +35,7 @@ contract Ballot {
     }
     
     function getBalance() public {
-        emit CheckTresaury (address(this) ,address(this).balance);
+        emit CheckTreasury (address(this) ,address(this).balance);
     }
     
 
