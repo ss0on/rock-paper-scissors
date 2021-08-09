@@ -20,13 +20,21 @@ export const useContract = async () => {
 			GameContractABI,
 			signer
 		)
-		const bet = ethers.utils.parseUnits('1.0', 18)
-		const txDeposit = await contract.deposit(bet, {
-			value: bet
-		})
+		// const bet = ethers.utils.parseUnits('1.5', 18)
+		// const txDeposit = await contract.deposit(bet, {
+		// 	value: bet
+		// })
+		// console.log({txDeposit})
+
 		const tx = await contract.getBalance()
 		const balance = Number(tx.value)
-		console.log({ contract, provider, signer, balance, txDeposit })
+		contract.on('CheckTreasury', (from, to, amount, event) => {
+			console.log({ from, to, amount, event })
+			// The event object contains the verbatim log data, the
+			// EventFragment and functions to fetch the block,
+			// transaction and receipt and event functions
+		})
+		console.log({ contract, provider, signer, balance, tx })
 	}
 	useEffect(() => {
 		getData()
