@@ -36,9 +36,6 @@ contract RockPaperScissorsGame {
         emit withdrawFundsEvent(msg.sender, address(this).balance );
     }
     
-    function getBalance() public returns(uint){
-        return address(this).balance;
-    }
     function getViewBalance() public view returns(uint){
         return address(this).balance;
     } 

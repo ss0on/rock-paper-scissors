@@ -1,49 +1,28 @@
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 import './App.css'
-import { App, GameContractABI } from './config'
-import { getProvider } from './hooks/useContract'
+import { getInitialData } from './helpers'
 
 function App2() {
 	const [contract, setContract] = useState()
 	const [signerData, setSignerData] = useState()
 
 	const getData = useCallback(async () => {
-		const provider = await getProvider()
-		const signer = await provider.getSigner()
-		const signerAddress = await signer.getAddress()
-		const signerBalance = await signer.getBalance()
-
-		const contract = new ethers.Contract(
-			App.CONTRACT_ADDRESS,
-			GameContractABI,
-			signer
-		)
-		contract.on('depositEvent', (x) => {
-			console.log('depositEvent Event', { x })
-		})
-		// console.log({txDeposit})
-		setSignerData({
-			address: signerAddress,
-			balance: ethers.utils.formatEther(signerBalance)
-		})
+		const { contract, signerData } = await getInitialData()
+		setSignerData({ ...signerData })
 		setContract(contract)
 	}, [])
 
 	async function handleDepositFunds() {
 		const bet = ethers.utils.parseUnits('1.5', 18)
-		const txDeposit = await contract.deposit(bet, {
+		await contract.deposit(bet, {
 			value: bet
 		})
-		console.log({ txDeposit })
 	}
+
 	async function handleReadDeposits() {
 		try {
-			const provider = await getProvider()
-			const signer = await provider.getSigner()
-
-			const txBalance = await contract.getViewBalance()
-			console.log({ txBalance })
+			await contract.getViewBalance()
 		} catch (err) {
 			console.log('error', err)
 		}
