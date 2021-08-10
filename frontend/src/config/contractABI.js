@@ -20,7 +20,26 @@ export const GameContractABI = [
 				type: 'uint256'
 			}
 		],
-		name: 'CheckTreasury',
+		name: 'depositEvent',
+		type: 'event'
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'contractOwner',
+				type: 'address'
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'balance',
+				type: 'uint256'
+			}
+		],
+		name: 'withdrawFundsEvent',
 		type: 'event'
 	},
 	{
@@ -39,6 +58,19 @@ export const GameContractABI = [
 	{
 		inputs: [],
 		name: 'getBalance',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256'
+			}
+		],
+		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		inputs: [],
+		name: 'getViewBalance',
 		outputs: [
 			{
 				internalType: 'uint256',
