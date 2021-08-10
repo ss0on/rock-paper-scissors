@@ -11,7 +11,7 @@ contract RockPaperScissorsGame {
     address private owner;
     uint private treasury;
 
-    event CheckTreasury(address indexed  treasuryAddress, uint treasuryBalance);
+    event CheckTreasury(address degenerate, uint bet);
 
     mapping(address => Player) public players;
     
@@ -28,14 +28,15 @@ contract RockPaperScissorsGame {
         require(_bet > 1000000000000000000 wei, 'pay more');
         treasury = msg.value;
         players[msg.sender].bet  += _bet;
+        emit CheckTreasury(msg.sender ,_bet );
     }
     
     function withdrawFunds() public payable isOwner{
         payable(msg.sender).transfer(address(this).balance);
     }
     
-    function getBalance() public {
-        emit CheckTreasury (address(this) ,address(this).balance);
+    function getBalance() public view returns(uint){
+        return address(this).balance;
     }
     
 

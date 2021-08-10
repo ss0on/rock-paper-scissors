@@ -8,15 +8,15 @@ export const GameContractABI = [
 		anonymous: false,
 		inputs: [
 			{
-				indexed: true,
+				indexed: false,
 				internalType: 'address',
-				name: 'treasuryAddress',
+				name: 'degenerate',
 				type: 'address'
 			},
 			{
 				indexed: false,
 				internalType: 'uint256',
-				name: 'treasuryBalance',
+				name: 'bet',
 				type: 'uint256'
 			}
 		],
@@ -39,8 +39,14 @@ export const GameContractABI = [
 	{
 		inputs: [],
 		name: 'getBalance',
-		outputs: [],
-		stateMutability: 'nonpayable',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256'
+			}
+		],
+		stateMutability: 'view',
 		type: 'function'
 	},
 	{
