@@ -34,7 +34,7 @@ function App2() {
 
 	useEffect(() => {
 		getData()
-	}, [getData])
+	}, [])
 
 	return (
 		<div>

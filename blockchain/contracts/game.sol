@@ -14,7 +14,6 @@ contract RockPaperScissorsGame {
     event withdrawFundsEvent(address indexed contractOwner, uint256 balance);
 
     mapping(address => Player) public players;
-
     constructor() {
         owner = msg.sender; // 'msg.sender' is sender of current call, contract deployer for a constructor
     }
@@ -24,7 +23,7 @@ contract RockPaperScissorsGame {
         _;
     }
     
-    function deposit(uint _bet)payable public {
+    function deposit(uint _bet) payable public {
         require(_bet > 1000000000000000000 wei, 'pay more');
         treasury = msg.value;
         players[msg.sender].bet  += _bet;
