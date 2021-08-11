@@ -13,6 +13,7 @@ export function getProvider() {
 	if (!hasMetaMask()) return new ethers.providers.JsonRpcProvider(App.ETH_RPC)
 	return new ethers.providers.Web3Provider(window.ethereum, 'any')
 }
+
 export async function getInitialData() {
 	const provider = await getProvider()
 	const signer = await provider.getSigner()
@@ -32,4 +33,21 @@ export async function getInitialData() {
 		contract,
 		signer: { address: signerAddress, balance: parseBalance(signerBalance) }
 	}
+}
+
+export async function getPastEvents() {
+	const _provider = getProvider()
+	const iface = new ethers.utils.Interface(GameContractABI)
+	const logs = await _provider.getLogs({
+		address: App.CONTRACT_ADDRESS
+	})
+	console.log(logs)
+	const decodedEvents = logs?.map((log) => {
+		return iface.decodeEventLog('depositEvent', log.data)
+	})
+	console.log(decodedEvents)
+	// const toAddresses = decodedEvents.map((event) => event['values']['to'])
+	// const fromAddresses = decodedEvents.map((event) => event['values']['from'])
+	// const amounts = decodedEvents.map((event) => event['values']['value'])
+	// return [fromAddresses, toAddresses, amounts]
 }

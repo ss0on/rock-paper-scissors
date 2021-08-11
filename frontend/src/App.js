@@ -1,15 +1,15 @@
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 import './App.css'
-import { getInitialData } from './helpers'
+import { getInitialData, getPastEvents } from './helpers'
 
 function App2() {
 	const [contract, setContract] = useState()
 	const [signerData, setSignerData] = useState()
 
 	const getData = useCallback(async () => {
-		const { contract, signerData } = await getInitialData()
-		setSignerData({ ...signerData })
+		const { contract, signer } = await getInitialData()
+		setSignerData({ ...signer })
 		setContract(contract)
 	}, [])
 
@@ -26,6 +26,10 @@ function App2() {
 		} catch (err) {
 			console.log('error', err)
 		}
+	}
+
+	function handleGetLogs() {
+		getPastEvents()
 	}
 
 	useEffect(() => {
@@ -66,6 +70,18 @@ function App2() {
 					}}
 					onClick={handleReadDeposits}>
 					Read deposited funds
+				</button>
+				<button
+					style={{
+						background: 'IndianRed',
+						border: 'none',
+						fontSize: '18px',
+						padding: '1rem',
+						cursor: 'pointer',
+						margin: '1rem'
+					}}
+					onClick={handleGetLogs}>
+					Get Logs & Events
 				</button>
 			</div>
 		</div>
