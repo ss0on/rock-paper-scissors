@@ -10,8 +10,8 @@ contract RockPaperScissorsGame {
     address private owner;
     uint private treasury;
 
-    event depositEvent(address degenerate, uint256 bet);
-    event withdrawFundsEvent(address contractOwner, uint256 balance);
+    event depositEvent(address indexed degenerate, uint256 bet);
+    event withdrawFundsEvent(address indexed contractOwner, uint256 balance);
 
     mapping(address => Player) public players;
 

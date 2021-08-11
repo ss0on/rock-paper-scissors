@@ -29,7 +29,7 @@ function App2() {
 	}
 
 	function handleGetLogs() {
-		getPastEvents()
+		getPastEvents(contract)
 	}
 
 	useEffect(() => {
